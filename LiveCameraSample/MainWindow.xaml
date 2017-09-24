@@ -1,0 +1,85 @@
+﻿<Window x:Class="LiveCameraSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LiveCameraSample"
+        mc:Ignorable="d"
+        Title="Reactube" Height="550" Width="725" Background="White" >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="35" />
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" HorizontalAlignment="Left" Width="200" VerticalAlignment="Stretch" Height="55" Grid.ColumnSpan="2" Source="C:\Users\Uddal\Downloads\Compressed\Cognitive-Samples-VideoFrameAnalysis-master\Windows\21942268_10210539473186186_572445980_n.png" />
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Name="ButtonBar">
+            <ComboBox x:Name="CameraList" Width="100" Margin="5,5,0,5" Loaded="CameraList_Loaded" Visibility="Hidden" />
+            <Button Content="Stop Camera" Padding="5,0" Margin="5,5,0,5" Click="StopButton_Click" Visibility="Hidden" />
+            <TextBlock VerticalAlignment="Center" Margin="15,5,0,5" Text="Mode:" Visibility="Hidden" />
+            <ComboBox x:Name="ModeList" Width="100" Margin="5,5,0,5" Loaded="ModeList_Loaded" SelectionChanged="ModeList_SelectionChanged" Visibility="Hidden" />
+        </StackPanel>
+        <Button Content="⚙" Padding="5,0" Margin="5" Click="SettingsButton_Click" HorizontalAlignment="Right" />
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock x:Name="LeftT" Margin="130,190,130,230" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold" Text="Live Recording"/>
+            <TextBlock x:Name="RightT" Margin="5" Grid.Column="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontWeight="Bold" Text="Recording Reactions"/>
+            <Image x:Name="LeftImage" Grid.Column="1" VerticalAlignment="Top" Height="180" Margin="5,10,5,0" />
+            <Image x:Name="RightImage" Grid.Column="1" VerticalAlignment="Bottom" Height="180" Margin="0,0,0,26" Panel.ZIndex="1" />
+            <StackPanel Visibility="{Binding Source={StaticResource Settings}, Path=Default.SettingsPanelVisibility, Mode=TwoWay}" Grid.Column="1" Panel.ZIndex="2" Name="SettingsPanel" Background="LightGray" VerticalAlignment="Top" Margin="5,10,5,-17" Height="456">
+                <TextBlock Margin="5" Grid.Row="0" FontWeight="Bold" Text="Settings"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="31*" />
+                        <ColumnDefinition Width="212*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Margin="5" Grid.Row="0" Grid.Column="0" Text="Face API Key:" />
+                    <TextBox   Margin="5" Grid.Row="0" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.FaceAPIKey, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5" Grid.Row="1" Grid.Column="0" Text="Face API Host:" />
+                    <TextBox   Margin="5" Grid.Row="1" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.FaceAPIHost, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5" Grid.Row="2" Grid.Column="0" Text="Emotion API Key:" />
+                    <TextBox   Margin="5" Grid.Row="2" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.EmotionAPIKey, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5" Grid.Row="3" Grid.Column="0" Text="Emotion API Host:" />
+                    <TextBox   Margin="5" Grid.Row="3" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.EmotionAPIHost, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5" Grid.Row="4" Grid.Column="0" Text="Vision API Key:" />
+                    <TextBox   Margin="5" Grid.Row="4" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.VisionAPIKey, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5" Grid.Row="5" Grid.Column="0" Text="Vision API Host:" />
+                    <TextBox   Margin="5" Grid.Row="5" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.VisionAPIHost, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5,5,5,37" Grid.Row="6" Grid.ColumnSpan="3" TextWrapping="Wrap"><Run Text="Get API keys at "/><Hyperlink NavigateUri="http://www.microsoft.com/cognitive" RequestNavigate="Hyperlink_RequestNavigate"><Run Text="microsoft.com/cognitive"/></Hyperlink></TextBlock>
+                    <TextBlock Margin="5,31,5,9" Grid.Row="6" Grid.Column="0" Text="API Call Interval:" />
+                    <TextBox   Margin="5,31,5,9" Grid.Row="6" Grid.Column="1" Text="{Binding Source={StaticResource Settings}, Path=Default.AnalysisInterval, Mode=TwoWay}" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="5,1,5,68.8" Grid.Row="7" Grid.ColumnSpan="3" TextWrapping="Wrap" Grid.RowSpan="2"><Run FontWeight="Bold" Text="Caution"/><Run Text=": Each video frame submitted to an API will count towards your transaction limit."/></TextBlock>
+                </Grid>
+                <TextBlock Margin="5,0,5,5">
+                    <Run Text="Face API calls made = "/><Run Text="{Binding Source={StaticResource Settings}, Path=Default.FaceAPICallCount}"/><LineBreak />
+                    <Run Text="Emotion API calls made = "/><Run Text="{Binding Source={StaticResource Settings}, Path=Default.EmotionAPICallCount}"/><LineBreak />
+                    <Run Text="Vision API calls made = "/><Run Text="{Binding Source={StaticResource Settings}, Path=Default.VisionAPICallCount}"/>
+                </TextBlock>
+                <CheckBox Margin="5" IsChecked="{Binding Source={StaticResource Settings}, Path=Default.AutoStopEnabled}" ContentStringFormat="Automatically stop after {0}" Content="{Binding Source={StaticResource Settings}, Path=Default.AutoStopTime}" />
+                <Button Margin="5" Content="Save" Click="SaveSettingsButton_Click" />
+            </StackPanel>
+            <MediaElement Name="MediaPlayer" MediaEnded="MediaPlayer_MediaEnded" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,10,10,130" />
+            <Image x:Name="Emo" Grid.Column="0" HorizontalAlignment="Center" Width="100" VerticalAlignment="Bottom" Height="104" Margin="100,0,158,26" />
+            <TextBlock x:Name="VideoT" HorizontalAlignment="Center" FontWeight="Bold" Text="Video" Height="50" Margin="165,300,155,100"/>
+            <Image x:Name="ImageT" HorizontalAlignment="Center" Width="200" VerticalAlignment="Center" Height="55" Grid.ColumnSpan="2" Source="C:\Users\Uddal\Downloads\Compressed\Cognitive-Samples-VideoFrameAnalysis-master\Windows\21942268_10210539473186186_572445980_n.png" Margin="256,149,261,245" />
+            <Image x:Name="EmoT" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" Height="130" Grid.ColumnSpan="2" Source="C:\Users\Uddal\Downloads\Compressed\Cognitive-Samples-VideoFrameAnalysis-master\Windows\facebook-emoji-reactions.gif" />
+            <Button x:Name="StartT" Background="LightGray" Content="Start Recording" Grid.ColumnSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center" Width="122" Click="StartButton_Click" Height="41" FontWeight="Bold" />
+        </Grid>
+        <TextBlock Name="MessageArea" Margin="5" Grid.Row="2" VerticalAlignment="Center" />
+    </Grid>
+</Window>
