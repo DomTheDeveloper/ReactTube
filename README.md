@@ -1,6 +1,6 @@
 # ReactTube
 
-ReactTube is a Hackathon app created by Dom and a group of peers to see how people react to videos using OpenCV and Microsoft's Mmicrosoft Cognitive Services Face API. After seeing how specific users react to specific videos, your data is than probably haphazzardly sent to third parties like Clearview and the NSA.
+ReactTube is a Hackathon app created by [Dom and a group of peers](https://devpost.com/software/reacttube) to see how people react to videos using OpenCV and Microsoft's Mmicrosoft Cognitive Services Face API. After seeing how specific users react to specific videos, your data is than probably haphazzardly sent to third parties like Clearview and the NSA.
 
 ### Inspiration
 This app was developed by a Libertarian who voted for Gary Johnson.
